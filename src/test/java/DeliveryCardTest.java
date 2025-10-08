@@ -11,12 +11,12 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class DeliveryCardTest {
 
-    public String generateDate(int days, String pattern){
+    public String generateDate(int days, String pattern) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern(pattern));
     }
 
     @Test
-    void shouldSuccessBookDelivery(){
+    void shouldSuccessBookDelivery() {
 
         String planDate = generateDate(4, "dd.MM.yyyy");
         Selenide.open("http://localhost:9999");
@@ -33,6 +33,6 @@ public class DeliveryCardTest {
 
         $("[data-test-id='notification']")
                 .should(Condition.visible, Duration.ofSeconds(15))
-                .should(Condition.text(planDate));
+                .should(Condition.text("Встреча успешно забронирована на " + planDate));
     }
 }
